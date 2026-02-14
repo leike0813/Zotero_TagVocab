@@ -1,0 +1,70 @@
+# Operation: create_tag
+name: create_tag
+description: Add a new tag to the vocabulary.
+
+input:
+  facet:
+    type: string
+    required: true
+    description: Target facet (must be in protocol facet enum).
+  value:
+    type: string
+    required: true
+    description: >
+      Tag value (without facet: prefix). Must match tag_pattern value portion.
+      Registered abbreviations must be UPPERCASE.
+  note:
+    type: string
+    required: false
+    default: ""
+    description: Human-readable description or translation.
+  source:
+    type: string
+    required: false
+    default: "manual"
+    description: Provenance of this tag.
+
+output:
+  created_tag:
+    type: string
+    description: The full tag string that was created (facet:value).
+  file_written:
+    type: string
+    description: Path to the per-facet file that was modified.
+
+preconditions:
+  - id: VALID_FACET
+    rule: "facet MUST be one of the protocol-defined facets."
+  - id: VALID_FORMAT
+    rule: >
+      The constructed tag (facet:value) MUST match the global tag_pattern regex.
+      No spaces allowed. Multiword uses hyphens.
+  - id: NO_DUPLICATE
+    rule: >
+      The tag MUST NOT already exist in any facet file (exact match).
+  - id: NO_CASE_DUPLICATE
+    rule: >
+      The tag MUST NOT match any existing tag case-insensitively.
+  - id: ABBREV_CASE
+    rule: >
+      Any value segment matching a registered abbreviation (from abbrev.yaml)
+      MUST use the canonical uppercase form from the registry.
+
+postconditions:
+  - "Tag entry appended to tags/{facet}.yaml."
+  - "compile operation is triggered (side effect)."
+
+errors:
+  - code: INVALID_FACET
+    message: "Facet '{facet}' is not in the allowed set."
+  - code: INVALID_FORMAT
+    message: "Tag '{tag}' does not match the required format pattern."
+  - code: DUPLICATE
+    message: "Tag '{tag}' already exists."
+  - code: CASE_DUPLICATE
+    message: "Tag '{tag}' is a case-insensitive duplicate of '{existing}'."
+  - code: ABBREV_CASE_ERROR
+    message: "Segment '{segment}' should be '{expected}' per abbreviation registry."
+
+side_effects:
+  - "Triggers compile operation to regenerate tags/tags.yaml."

@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Indexes (regenerated)
+authority/index/
+
+# IDE
+.vscode/
+.idea/
+.agent/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual env
+.venv/
+venv/

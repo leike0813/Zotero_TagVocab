@@ -1,0 +1,62 @@
+# Tag Entry Schema (JSON Schema draft-07, YAML syntax)
+$schema: "http://json-schema.org/draft-07/schema#"
+title: TagEntry
+description: A single controlled vocabulary tag entry.
+
+type: object
+required:
+  - tag
+  - facet
+
+properties:
+  tag:
+    type: string
+    description: >
+      Canonical tag string in facet:value format.
+      Facet prefix is always lowercase. Value uses / for hierarchy,
+      - for multiword. No spaces. Registered abbreviations must be UPPERCASE.
+    pattern: "^[a-z_]+:[a-zA-Z0-9/_.-]+$"
+    minLength: 3
+    maxLength: 120
+    examples:
+      - "topic:tunnel"
+      - "field:CE/UG/Tunnel"
+      - "model:DL/CNN"
+      - "status:0-inbox"
+
+  facet:
+    type: string
+    description: Facet category this tag belongs to.
+    enum:
+      - field
+      - topic
+      - method
+      - model
+      - ai_task
+      - data
+      - tool
+      - status
+
+  source:
+    type: string
+    description: Provenance of this tag (e.g., llm-interactive, manual, cgi-import).
+    default: "manual"
+    examples:
+      - "llm-interactive"
+      - "manual"
+      - "cgi-import"
+
+  note:
+    type: string
+    description: Human-readable description or translation of the tag.
+    default: ""
+    examples:
+      - "隧道（通用）"
+      - "Swin Transformer"
+
+  deprecated:
+    type: boolean
+    description: Whether this tag is deprecated (soft-deleted).
+    default: false
+
+additionalProperties: false

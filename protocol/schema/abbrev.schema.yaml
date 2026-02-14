@@ -1,0 +1,30 @@
+# Abbreviation Registry Schema (JSON Schema draft-07, YAML syntax)
+$schema: "http://json-schema.org/draft-07/schema#"
+title: AbbreviationRegistry
+description: >
+  Schema for the abbreviation registry (tags/abbrev.yaml).
+  Maps lowercase keys to their canonical UPPERCASE display forms.
+  Registered abbreviations MUST appear in UPPERCASE within tag values.
+
+type: object
+patternProperties:
+  "^[a-z]+$":
+    type: string
+    description: >
+      Canonical uppercase form of the abbreviation.
+      The key is the lowercase lookup form.
+    pattern: "^[A-Z][A-Za-z0-9]*$"
+    examples:
+      - "CNN"
+      - "DL"
+      - "FEM"
+      - "LiDAR"
+
+additionalProperties: false
+
+examples:
+  - cnn: CNN
+    dl: DL
+    fem: FEM
+    lidar: LiDAR
+    tbm: TBM

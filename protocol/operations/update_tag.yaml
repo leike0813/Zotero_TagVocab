@@ -1,0 +1,63 @@
+# Operation: update_tag
+name: update_tag
+description: Modify metadata of an existing tag or rename it.
+
+input:
+  tag:
+    type: string
+    required: true
+    description: The current full tag string to update (facet:value).
+  new_value:
+    type: string
+    required: false
+    description: >
+      New value portion (for rename). If provided, the tag is renamed.
+      Must satisfy the same format rules as create_tag.
+  note:
+    type: string
+    required: false
+    description: New note value. If provided, replaces the existing note.
+  deprecated:
+    type: boolean
+    required: false
+    description: New deprecated status. If provided, updates the deprecated flag.
+  source:
+    type: string
+    required: false
+    description: New source value. If provided, replaces the existing source.
+
+output:
+  updated_tag:
+    type: string
+    description: The tag string after update (may differ if renamed).
+  file_written:
+    type: string
+    description: Path to the per-facet file that was modified.
+
+preconditions:
+  - id: TAG_EXISTS
+    rule: "The specified tag MUST exist in the vocabulary."
+  - id: VALID_NEW_FORMAT
+    rule: >
+      If new_value is provided, the resulting tag MUST match tag_pattern
+      and abbreviation casing rules.
+  - id: NO_RENAME_DUPLICATE
+    rule: >
+      If renamed, the new tag MUST NOT collide with any existing tag
+      (exact or case-insensitive).
+
+postconditions:
+  - "Tag entry in the per-facet file is updated."
+  - "If renamed, the old tag string no longer exists."
+  - "compile operation is triggered (side effect)."
+
+errors:
+  - code: TAG_NOT_FOUND
+    message: "Tag '{tag}' does not exist in the vocabulary."
+  - code: INVALID_FORMAT
+    message: "New tag '{tag}' does not match the required format."
+  - code: RENAME_DUPLICATE
+    message: "Renamed tag '{tag}' would collide with existing '{existing}'."
+
+side_effects:
+  - "Triggers compile operation to regenerate tags/tags.yaml."

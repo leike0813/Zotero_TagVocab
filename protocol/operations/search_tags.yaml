@@ -1,0 +1,44 @@
+# Operation: search_tags
+name: search_tags
+description: Search for tags using case-insensitive substring matching.
+
+input:
+  query:
+    type: string
+    required: true
+    description: Search term. Matched case-insensitively against tag string and note.
+  facet:
+    type: string
+    required: false
+    description: Restrict search to a single facet.
+
+output:
+  results:
+    type: array
+    items:
+      type: object
+      properties:
+        tag: { type: string }
+        facet: { type: string }
+        note: { type: string }
+    description: Matching tags with facet and note.
+  count:
+    type: integer
+    description: Number of matches found.
+
+preconditions:
+  - id: NON_EMPTY_QUERY
+    rule: "Query string MUST NOT be empty."
+  - id: VALID_FACET_FILTER
+    rule: "If facet filter is provided, it MUST be a valid facet."
+
+postconditions:
+  - "No state changes (read-only)."
+
+errors:
+  - code: EMPTY_QUERY
+    message: "Search query must not be empty."
+  - code: INVALID_FACET
+    message: "Facet filter '{facet}' is not in the allowed set."
+
+side_effects: []

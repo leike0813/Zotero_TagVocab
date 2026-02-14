@@ -1,0 +1,74 @@
+# Operation: export_tags
+name: export_tags
+description: Export tag strings (without metadata) in various formats.
+
+input:
+  format:
+    type: string
+    required: true
+    enum: ["yaml", "json", "md", "txt"]
+    description: Output format for the exported tag list.
+  facet:
+    type: string
+    required: false
+    description: Filter export to a single facet.
+  output_file:
+    type: string
+    required: false
+    description: >
+      File path to write output. If omitted, output goes to stdout.
+
+output:
+  tags:
+    type: array
+    items: { type: string }
+    description: The exported tag strings (facet:value only, no metadata).
+  count:
+    type: integer
+    description: Number of tags exported.
+  format:
+    type: string
+    description: The format used for output.
+
+format_specifications:
+  yaml:
+    description: YAML list of tag strings.
+    example: |
+      - ai_task:classification
+      - topic:tunnel
+  json:
+    description: JSON array of tag strings.
+    example: |
+      ["ai_task:classification", "topic:tunnel"]
+  md:
+    description: >
+      Markdown document with tags grouped by facet under ## headers,
+      each tag as a bullet with backtick formatting.
+    example: |
+      # Tag List
+      ## topic
+      - `topic:tunnel`
+  txt:
+    description: One tag per line, no formatting.
+    example: |
+      ai_task:classification
+      topic:tunnel
+
+preconditions:
+  - id: VALID_FORMAT
+    rule: "Format MUST be one of: yaml, json, md, txt."
+  - id: VALID_FACET_FILTER
+    rule: "If facet is provided, it MUST be a valid facet."
+
+postconditions:
+  - "No vocabulary state changes (read-only + format conversion)."
+
+errors:
+  - code: INVALID_FORMAT
+    message: "Format '{format}' is not supported."
+  - code: INVALID_FACET
+    message: "Facet filter '{facet}' is not in the allowed set."
+  - code: NO_TAGS
+    message: "No tags found matching the filter criteria."
+
+side_effects: []

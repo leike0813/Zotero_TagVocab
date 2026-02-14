@@ -1,0 +1,47 @@
+# Abbreviation registry (lowercase key → UPPERCASE canonical form)
+# All abbreviations here MUST appear in UPPERCASE in canonical tags.
+# New abbreviations must go through governance (§7 of 文献Tag维护说明.md).
+
+# === 学科 / Field ===
+ce: CE                # Civil Engineering
+cs: CS                # Computer Science
+gt: GT                # Geotechnical
+ug: UG                # Underground
+mgmt: MGMT           # Management
+
+# === AI / 计算 ===
+ai: AI
+dl: DL                # Deep Learning
+ml: ML                # Machine Learning
+cv: CV                # Computer Vision
+nlp: NLP              # Natural Language Processing
+llm: LLM              # Large Language Model
+cnn: CNN
+rnn: RNN
+lstm: LSTM
+gan: GAN
+gnn: GNN              # Graph Neural Network
+gru: GRU              # Gated Recurrent Unit
+gpt: GPT
+bert: BERT
+svm: SVM
+
+# === 工程方法/模型 ===
+fem: FEM              # Finite Element Method (原 FE，统一为 FEM)
+dem: DEM              # Discrete Element Method
+mc: MC                # Monte Carlo / Mohr-Coulomb (context-dependent)
+tbm: TBM              # Tunnel Boring Machine
+natm: NATM            # New Austrian Tunnelling Method
+ahp: AHP              # Analytic Hierarchy Process
+bim: BIM              # Building Information Modeling
+bem: BEM              # Boundary Element Method
+clip: CLIP            # Contrastive Language-Image Pre-training
+fpn: FPN              # Feature Pyramid Network
+pca: PCA              # Principal Component Analysis
+gpr: GPR              # Ground Penetrating Radar
+rag: RAG              # Retrieval-Augmented Generation
+sam: SAM              # Segment Anything Model
+tcn: TCN              # Temporal Convolutional Network
+detr: DETR            # Detection Transformer
+dbscan: DBSCAN        # Density-Based Spatial Clustering
+lidar: LiDAR          # Light Detection and Ranging

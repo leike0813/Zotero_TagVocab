@@ -1,0 +1,45 @@
+# Vocabulary Management Protocol
+# Language-agnostic contract for controlled tag vocabulary CRUD operations.
+
+version: "1.0.0"
+
+# Global constraints
+tag_pattern: "^[a-z_]+:[a-zA-Z0-9/_.-]+$"
+max_tag_length: 120
+
+# Facet enum (authoritative list)
+facets:
+  - field
+  - topic
+  - method
+  - model
+  - ai_task
+  - data
+  - tool
+  - status
+
+# File layout
+paths:
+  tags_dir: "tags/"
+  compiled_output: "tags/tags.yaml"
+  abbrev_file: "tags/abbrev.yaml"
+  aliases_file: "tags/aliases.yaml"
+  facet_file_template: "tags/{facet}.yaml"
+
+# Schema references
+schemas:
+  tag: "schema/tag.schema.yaml"
+  facet: "schema/facet.schema.yaml"
+  abbrev: "schema/abbrev.schema.yaml"
+
+# Operation references
+operations:
+  - "operations/create_tag.yaml"
+  - "operations/read_tags.yaml"
+  - "operations/search_tags.yaml"
+  - "operations/update_tag.yaml"
+  - "operations/delete_tag.yaml"
+  - "operations/export_tags.yaml"
+  - "operations/validate.yaml"
+  - "operations/compile.yaml"
+  - "operations/stats.yaml"

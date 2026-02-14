@@ -1,0 +1,45 @@
+# Operation: stats
+name: stats
+description: Aggregate vocabulary statistics: counts per facet, total, and recent additions.
+
+input:
+  recent:
+    type: integer
+    required: false
+    default: 0
+    description: >
+      Number of most recently added tags to show (from file order, last entries).
+      0 means do not show recent additions.
+
+output:
+  facet_counts:
+    type: object
+    description: >
+      Mapping of facet name to tag count.
+      Example: {"field": 19, "topic": 102, ...}
+    additionalProperties:
+      type: integer
+  total:
+    type: integer
+    description: Total number of tags across all facets.
+  recent_tags:
+    type: array
+    items:
+      type: object
+      properties:
+        tag: { type: string }
+        note: { type: string }
+    description: >
+      The N most recently added tags (empty if recent=0).
+      Order: most recent first.
+
+preconditions: []
+
+postconditions:
+  - "No state changes (read-only)."
+
+errors:
+  - code: NO_FACET_FILES
+    message: "No per-facet files found."
+
+side_effects: []

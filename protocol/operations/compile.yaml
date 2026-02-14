@@ -1,0 +1,45 @@
+# Operation: compile
+name: compile
+description: >
+  Merge all per-facet YAML files into a single compiled tags/tags.yaml.
+  The compiled file is the downstream-consumable output, sorted deterministically.
+
+input: {}
+  # No input parameters — operates on the fixed file layout.
+
+output:
+  tag_count:
+    type: integer
+    description: Total number of tags in the compiled output.
+  facets_compiled:
+    type: integer
+    description: Number of facet files successfully read.
+  missing_facets:
+    type: array
+    items: { type: string }
+    description: Facet files that were not found (warning, not fatal).
+  output_file:
+    type: string
+    description: Path to the compiled output file.
+
+preconditions:
+  - id: FACET_FILES_EXIST
+    rule: >
+      At least one per-facet file MUST exist. Missing files generate
+      a warning but are not fatal.
+
+postconditions:
+  - "tags/tags.yaml is overwritten with merged, sorted content."
+  - "First line of output is a comment marking the file as auto-generated."
+  - "Tags are sorted deterministically: by facet, then by tag string."
+
+sort_order:
+  primary: "facet (alphabetical)"
+  secondary: "tag (alphabetical)"
+
+errors:
+  - code: NO_FACET_FILES
+    message: "No per-facet files found. Nothing to compile."
+
+side_effects:
+  - "Overwrites tags/tags.yaml."

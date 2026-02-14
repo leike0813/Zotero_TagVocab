@@ -1,0 +1,82 @@
+# Operation: validate
+name: validate
+description: >
+  Validate vocabulary files for format consistency, duplicate detection,
+  facet membership, and abbreviation casing rules.
+
+input:
+  mode:
+    type: string
+    required: false
+    default: "compiled"
+    enum: ["compiled", "per-facet"]
+    description: >
+      compiled: validate the single tags/tags.yaml.
+      per-facet: validate each tags/<facet>.yaml individually, plus cross-file checks.
+  strict:
+    type: boolean
+    required: false
+    default: false
+    description: >
+      If true, return a non-zero exit code on any issue found.
+
+output:
+  issues:
+    type: array
+    items:
+      type: object
+      properties:
+        file: { type: string }
+        index: { type: integer }
+        tag: { type: string }
+        code: { type: string }
+        message: { type: string }
+    description: List of validation issues found.
+  tag_count:
+    type: integer
+    description: Total number of tags validated.
+  facets_found:
+    type: array
+    items: { type: string }
+    description: Facets present in the validated data.
+  passed:
+    type: boolean
+    description: Whether all checks passed (no issues).
+
+checks:
+  - id: FORMAT
+    description: "Every tag MUST match the global tag_pattern regex."
+  - id: NO_SPACES
+    description: "No tag value MAY contain spaces."
+  - id: VALID_FACET
+    description: "Every tag's facet prefix MUST be in the protocol facet enum."
+  - id: FACET_FIELD_MATCH
+    description: "The entry's facet field MUST match the tag's facet prefix."
+  - id: NO_EXACT_DUPLICATE
+    description: "No two tags MAY have the same exact string."
+  - id: NO_CASE_DUPLICATE
+    description: "No two tags MAY differ only by case."
+  - id: ABBREV_CASE
+    description: >
+      Every path segment matching a registered abbreviation MUST use
+      the canonical uppercase form.
+  - id: DEPRECATED_BOOLEAN
+    description: "The deprecated field, if present, MUST be boolean."
+  - id: FACET_FILENAME_MATCH
+    description: >
+      (per-facet mode only) Every entry's facet field MUST match
+      the filename it resides in.
+  - id: CROSS_FILE_DUPLICATE
+    description: >
+      (per-facet mode only) No tag MAY appear in more than one facet file.
+
+preconditions: []
+
+postconditions:
+  - "No state changes (read-only)."
+
+errors:
+  - code: FILE_NOT_FOUND
+    message: "Vocabulary file not found."
+
+side_effects: []

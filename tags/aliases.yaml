@@ -1,0 +1,5 @@
+# Synonym/legacy -> canonical mapping
+# Format:
+# - alias: "legacy tag"
+#   canonical: "facet:canonical-tag"
+#   reason: "merge"

@@ -1,0 +1,4 @@
+# Provenance of vocabulary terms
+llm-interactive:
+  method: "Interactive LLM session (human-in-the-loop)"
+  note: "Tags proposed by LLM, reviewed and confirmed by user"

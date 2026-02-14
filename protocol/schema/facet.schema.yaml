@@ -1,0 +1,98 @@
+# Facet Schema (JSON Schema draft-07, YAML syntax)
+$schema: "http://json-schema.org/draft-07/schema#"
+title: FacetDefinition
+description: Defines the allowed facets and their per-facet rules.
+
+type: object
+required:
+  - facets
+
+properties:
+  facets:
+    type: array
+    description: Ordered list of facet definitions.
+    items:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          description: Facet identifier (lowercase, used as prefix in tags).
+        description:
+          type: string
+          description: Human-readable purpose of this facet.
+        hierarchy:
+          type: boolean
+          description: Whether this facet supports hierarchical values (using /).
+          default: false
+        hierarchy_template:
+          type: string
+          description: >
+            Optional template describing the hierarchy structure.
+            Only applicable when hierarchy is true.
+          examples:
+            - "{L1}/{L2}/{direction}"
+        governance_tier:
+          type: integer
+          description: >
+            Governance strictness (1=easiest to add, 5=strictest).
+            Higher tiers require more justification for new tags.
+          minimum: 1
+          maximum: 5
+        file:
+          type: string
+          description: Relative path to the per-facet YAML file.
+
+# Authoritative facet definitions
+definitions:
+  - name: field
+    description: Discipline / domain / research area
+    hierarchy: true
+    hierarchy_template: "{L1}/{L2}/{direction}"
+    governance_tier: 5
+    file: "tags/field.yaml"
+
+  - name: topic
+    description: Problem, object, or concept being studied
+    hierarchy: false
+    governance_tier: 1
+    file: "tags/topic.yaml"
+
+  - name: method
+    description: Approach, workflow, or technique
+    hierarchy: false
+    governance_tier: 3
+    file: "tags/method.yaml"
+
+  - name: model
+    description: Model, algorithm, constitutive law, or solver family
+    hierarchy: true
+    hierarchy_template: "{family}/{name}"
+    governance_tier: 3
+    file: "tags/model.yaml"
+
+  - name: ai_task
+    description: AI/ML task type (classification, segmentation, etc.)
+    hierarchy: false
+    governance_tier: 2
+    file: "tags/ai_task.yaml"
+
+  - name: data
+    description: Data type or modality
+    hierarchy: false
+    governance_tier: 2
+    file: "tags/data.yaml"
+
+  - name: tool
+    description: Software, platform, or framework
+    hierarchy: false
+    governance_tier: 2
+    file: "tags/tool.yaml"
+
+  - name: status
+    description: Workflow state of a literature item
+    hierarchy: false
+    governance_tier: 5
+    file: "tags/status.yaml"

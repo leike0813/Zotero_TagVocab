@@ -1,0 +1,45 @@
+# Operation: read_tags
+name: read_tags
+description: List and filter tags from the vocabulary.
+
+input:
+  facet:
+    type: string
+    required: false
+    description: Filter by facet. If omitted, returns tags from all facets.
+  include_deprecated:
+    type: boolean
+    required: false
+    default: false
+    description: Whether to include deprecated tags in results.
+  sort_by:
+    type: string
+    required: false
+    default: "tag"
+    enum: ["tag", "facet", "source"]
+    description: Field to sort results by.
+
+output:
+  tags:
+    type: array
+    items:
+      $ref: "schema/tag.schema.yaml"
+    description: List of tag entries matching the filter criteria.
+  count:
+    type: integer
+    description: Number of tags returned.
+
+preconditions:
+  - id: VALID_FACET_FILTER
+    rule: "If facet filter is provided, it MUST be a valid facet."
+
+postconditions:
+  - "No state changes (read-only)."
+
+errors:
+  - code: INVALID_FACET
+    message: "Facet filter '{facet}' is not in the allowed set."
+  - code: FILE_NOT_FOUND
+    message: "Per-facet file for '{facet}' not found."
+
+side_effects: []

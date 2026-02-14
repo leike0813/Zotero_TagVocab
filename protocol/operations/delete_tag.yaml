@@ -1,0 +1,50 @@
+# Operation: delete_tag
+name: delete_tag
+description: >
+  Remove a tag from the vocabulary. Supports soft-delete (deprecate) and
+  hard-delete (permanent removal). Soft-delete is the default and recommended
+  approach for LTS stability.
+
+input:
+  tag:
+    type: string
+    required: true
+    description: The full tag string to delete (facet:value).
+  hard:
+    type: boolean
+    required: false
+    default: false
+    description: >
+      If true, permanently removes the entry from the facet file.
+      If false (default), sets deprecated=true (soft delete).
+
+output:
+  deleted_tag:
+    type: string
+    description: The tag string that was deleted/deprecated.
+  action:
+    type: string
+    enum: ["deprecated", "removed"]
+    description: Whether the tag was soft-deleted or hard-deleted.
+
+preconditions:
+  - id: TAG_EXISTS
+    rule: "The specified tag MUST exist in the vocabulary."
+  - id: NOT_ALREADY_DEPRECATED
+    rule: >
+      For soft-delete, the tag SHOULD NOT already be deprecated.
+      A warning is issued if it is.
+
+postconditions:
+  - "Soft: deprecated field set to true in the per-facet file."
+  - "Hard: entry removed from the per-facet file."
+  - "compile operation is triggered (side effect)."
+
+errors:
+  - code: TAG_NOT_FOUND
+    message: "Tag '{tag}' does not exist in the vocabulary."
+  - code: ALREADY_DEPRECATED
+    message: "Tag '{tag}' is already deprecated."
+
+side_effects:
+  - "Triggers compile operation to regenerate tags/tags.yaml."
