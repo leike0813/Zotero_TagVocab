@@ -1,19 +1,16 @@
-## MODIFIED Requirements
-
+## Purpose
+Ensure vocabulary data integrity through rigorous validation rules.
+## Requirements
 ### Requirement: Validate tag format
-The validator SHALL check that every tag matches the regex pattern `^[a-z_]+:[a-zA-Z0-9/_.-]+$` and reject tags that do not conform. **Additionally**, it SHALL support a `--per-facet` flag to validate individual per-facet files.
+The validator SHALL load the tag format regex from `protocol/protocol.yaml` and the facet enum from `protocol/schema/facet.schema.yaml` instead of hardcoding. All validation logic remains the same.
 
-#### Scenario: Valid tag passes
-- **WHEN** `validate.py` checks `topic:face-stability`
-- **THEN** it SHALL pass the format check
+#### Scenario: Tag pattern from protocol
+- **WHEN** `validate.py` checks tag format
+- **THEN** the regex SHALL be loaded from `protocol/protocol.yaml` field `tag_pattern`
 
-#### Scenario: Invalid tag fails
-- **WHEN** `validate.py` checks a tag containing spaces
-- **THEN** it SHALL report a format error with the tag name and index
-
-#### Scenario: Per-facet mode validates individual files
-- **WHEN** `validate.py --per-facet` is run
-- **THEN** it SHALL validate each `tags/<facet>.yaml` file individually
+#### Scenario: Facet enum from protocol
+- **WHEN** `validate.py` checks facet membership
+- **THEN** the allowed set SHALL be loaded from `protocol/schema/facet.schema.yaml`
 
 ### Requirement: Validate no duplicates
 The validator SHALL detect both exact-match and case-insensitive duplicate tags. **Additionally**, in `--per-facet` mode it SHALL check for cross-file duplicates.
@@ -32,3 +29,11 @@ In `--per-facet` mode, the validator SHALL check that every entry's `facet` fiel
 #### Scenario: Facet mismatch detected
 - **WHEN** `tags/topic.yaml` contains an entry with `facet: method`
 - **THEN** `validate.py --per-facet` SHALL report a facet-filename mismatch
+
+### Requirement: Validate abbreviation casing
+The validator SHALL still check abbreviation casing, but the behavior contract is now defined in `protocol/operations/validate.yaml`.
+
+#### Scenario: Behavior matches protocol contract
+- **WHEN** `validate.py` runs abbreviation checks
+- **THEN** the checks SHALL match the preconditions defined in `protocol/operations/validate.yaml`
+

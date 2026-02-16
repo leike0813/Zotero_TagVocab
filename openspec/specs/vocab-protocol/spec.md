@@ -1,5 +1,8 @@
-## ADDED Requirements
+# vocab-protocol Specification
 
+## Purpose
+Define a language-agnostic vocabulary management protocol.
+## Requirements
 ### Requirement: Protocol root manifest
 `protocol/protocol.yaml` SHALL define: protocol version, list of facets, global constraints (tag pattern regex, max tag length), and references to all schema and operation files.
 
@@ -39,12 +42,12 @@ Each operation file in `protocol/operations/` SHALL define: `name`, `description
 - **WHEN** a developer reads `protocol/operations/create_tag.yaml`
 - **THEN** they SHALL find all input parameters with types, all validation rules as preconditions, the expected output, and possible error codes
 
-### Requirement: Nine operations defined
-The protocol SHALL define exactly these operations: `create_tag`, `read_tags`, `search_tags`, `update_tag`, `delete_tag`, `export_tags`, `validate`, `compile`, `stats`.
+### Requirement: Ten operations defined
+The protocol SHALL define exactly these operations: `create_tag`, `read_tags`, `search_tags`, `update_tag`, `delete_tag`, `export_tags`, `validate`, `compile`, `stats`, `import_tags`.
 
 #### Scenario: Complete operation coverage
 - **WHEN** listing all files in `protocol/operations/`
-- **THEN** there SHALL be exactly 9 operation YAML files
+- **THEN** there SHALL be exactly 10 operation YAML files
 
 ### Requirement: Protocol is language-agnostic
 The protocol SHALL NOT reference any programming language, library, or runtime. All type definitions SHALL use JSON Schema types (string, integer, boolean, array, object).
@@ -52,3 +55,4 @@ The protocol SHALL NOT reference any programming language, library, or runtime. 
 #### Scenario: No language-specific types
 - **WHEN** scanning all protocol files for language-specific references
 - **THEN** no references to Python, JavaScript, or any other language SHALL appear
+

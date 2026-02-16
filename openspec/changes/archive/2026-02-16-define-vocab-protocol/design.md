@@ -26,7 +26,7 @@ Data schemas use JSON Schema draft-07 (written in YAML syntax). This gives us:
 
 Operations use a custom YAML format (not OpenAPI) because the system is not HTTP-based. Each operation defines: name, description, input parameters, output, preconditions, postconditions, errors, side_effects.
 
-### 2. Operation granularity: 8 operations
+### 2. Operation granularity: 10 operations
 
 | Operation | Description |
 |:---|:---|
@@ -39,8 +39,10 @@ Operations use a custom YAML format (not OpenAPI) because the system is not HTTP
 | `validate` | Check consistency of all vocabulary files |
 | `compile` | Merge per-facet files into single tags.yaml |
 | `stats` | Aggregate counts and recent additions |
+| `import_tags` | Batch-import external tags with conflict resolution |
 
 `stats` is kept separate from `read_tags` because it returns aggregated data, not individual entries.
+`import_tags` is kept separate from `create_tag` because it handles batch input, multiple formats, and conflict-resolution strategies.
 
 ### 3. Protocol loads at runtime via a `protocol_loader` module
 

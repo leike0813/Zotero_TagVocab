@@ -43,3 +43,4 @@ operations:
   - "operations/validate.yaml"
   - "operations/compile.yaml"
   - "operations/stats.yaml"
+  - "operations/import_tags.yaml"

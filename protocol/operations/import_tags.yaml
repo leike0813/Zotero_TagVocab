@@ -1,0 +1,95 @@
+# Operation: import_tags
+name: import_tags
+description: >
+  Batch-import tags from an external source into the vocabulary.
+  Accepts a list of tag entries (or raw tag strings) and writes them
+  into the corresponding per-facet files, applying full validation.
+
+input:
+  tags:
+    type: array
+    required: true
+    description: >
+      List of tag entries to import. Each element is either:
+      (a) a full tag-entry object (tag, facet, note, source, deprecated), or
+      (b) a plain tag string in facet:value format (facet and value are inferred).
+    items:
+      oneOf:
+        - $ref: "schema/tag.schema.yaml"
+        - type: string
+          pattern: "^[a-z_]+:[a-zA-Z0-9/_.-]+$"
+  source:
+    type: string
+    required: false
+    default: "import"
+    description: >
+      Default provenance label applied to entries that lack an explicit source.
+  on_duplicate:
+    type: string
+    required: false
+    default: "skip"
+    enum: [skip, overwrite, error]
+    description: >
+      Conflict-resolution strategy when an imported tag already exists.
+      - skip: silently ignore the duplicate.
+      - overwrite: replace the existing entry with the imported one.
+      - error: abort the entire import on first duplicate.
+  dry_run:
+    type: boolean
+    required: false
+    default: false
+    description: >
+      If true, validate all entries and report results without writing any files.
+
+output:
+  imported:
+    type: array
+    description: List of tag strings that were successfully written.
+  skipped:
+    type: array
+    description: List of tag strings skipped due to duplicates (when on_duplicate=skip).
+  overwritten:
+    type: array
+    description: List of tag strings that replaced existing entries (when on_duplicate=overwrite).
+  errors:
+    type: array
+    description: List of {tag, code, message} objects for entries that failed validation.
+  files_written:
+    type: array
+    description: Paths of per-facet files that were modified.
+
+preconditions:
+  - id: NON_EMPTY
+    rule: "The tags list MUST contain at least one entry."
+  - id: VALID_FACET
+    rule: "Every tag's facet MUST be one of the protocol-defined facets."
+  - id: VALID_FORMAT
+    rule: >
+      Every constructed tag (facet:value) MUST match the global tag_pattern regex.
+      No spaces allowed. Multiword uses hyphens.
+  - id: ABBREV_CASE
+    rule: >
+      Any value segment matching a registered abbreviation (from abbrev.yaml)
+      MUST use the canonical uppercase form from the registry.
+
+postconditions:
+  - "Imported tag entries are appended to their respective tags/{facet}.yaml files."
+  - "compile operation is triggered to regenerate tags/tags.yaml (unless dry_run)."
+  - "Duplicate handling follows the on_duplicate strategy."
+
+errors:
+  - code: EMPTY_INPUT
+    message: "Import list is empty."
+  - code: PARSE_ERROR
+    message: "Entry at index {index} could not be parsed: {detail}."
+  - code: INVALID_FACET
+    message: "Facet '{facet}' in entry at index {index} is not in the allowed set."
+  - code: INVALID_FORMAT
+    message: "Tag '{tag}' at index {index} does not match the required format pattern."
+  - code: DUPLICATE
+    message: "Tag '{tag}' already exists (on_duplicate=error)."
+  - code: ABBREV_CASE_ERROR
+    message: "Segment '{segment}' in tag '{tag}' should be '{expected}' per abbreviation registry."
+
+side_effects:
+  - "Triggers compile operation to regenerate tags/tags.yaml (unless dry_run)."

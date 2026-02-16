@@ -11,6 +11,8 @@ The validator SHALL load the tag format regex from `protocol/protocol.yaml` and 
 - **WHEN** `validate.py` checks facet membership
 - **THEN** the allowed set SHALL be loaded from `protocol/schema/facet.schema.yaml`
 
+## ADDED Requirements
+
 ### Requirement: Validate abbreviation casing
 The validator SHALL still check abbreviation casing, but the behavior contract is now defined in `protocol/operations/validate.yaml`.
 

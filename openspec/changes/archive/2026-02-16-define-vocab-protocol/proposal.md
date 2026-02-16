@@ -24,6 +24,7 @@ A **language-agnostic protocol** solves all three: one canonical definition of d
   - `operations/validate.yaml` — Validation operation contract
   - `operations/compile.yaml` — Merge/compile operation contract
   - `operations/stats.yaml` — Aggregation/statistics contract
+  - `operations/import_tags.yaml` — Batch import external tags contract
 - **Refactor existing scripts** to load rules (facet enum, tag pattern, abbreviations) from protocol schemas instead of hardcoding, serving as a **reference implementation**
 
 ## Capabilities
@@ -37,7 +38,7 @@ A **language-agnostic protocol** solves all three: one canonical definition of d
 
 ## Impact
 
-- New directory: `protocol/` (13 YAML files)
+- New directory: `protocol/` (14 YAML files)
 - Modified scripts: `validate.py`, `add_tag.py`, `search_tags.py`, `export_tags.py`, `stats.py`, `compile_vocab.py` — all load rules from `protocol/` instead of hardcoding
 - No new Python dependencies
 - **BREAKING** for consumers of hardcoded constants (e.g., `ALLOWED_FACETS` moves to `protocol/schema/facet.schema.yaml`)
