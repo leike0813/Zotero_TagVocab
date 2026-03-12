@@ -1,0 +1,84 @@
+# Operation: contribute
+name: contribute
+description: >
+  Write an updated tags/tags.json back to the GitHub repository via
+  the GitHub Contents API. Each call produces one git commit.
+  The caller is responsible for validation before contributing.
+
+input:
+  owner:
+    type: string
+    required: true
+    description: GitHub repository owner.
+  repo:
+    type: string
+    required: true
+    description: GitHub repository name.
+  token:
+    type: string
+    required: true
+    description: GitHub Personal Access Token with repo write permission.
+  vocab:
+    type: object
+    required: true
+    description: >
+      The complete updated vocabulary object. Must conform to the same
+      schema as subscribe output (version, updated_at, facets, tags, abbrevs, tag_count).
+  message:
+    type: string
+    required: false
+    default: "Update vocabulary via contribute"
+    description: Git commit message.
+
+output:
+  commit_sha:
+    type: string
+    description: SHA of the created git commit.
+  updated_at:
+    type: string
+    description: Timestamp embedded in the contributed JSON.
+
+preconditions:
+  - id: VALID_TOKEN
+    rule: "Token MUST have write permission to the repository."
+  - id: SHA_MATCH
+    rule: >
+      The current file SHA MUST be provided (read from subscribe).
+      If the SHA does not match the server's current SHA, the PUT
+      fails with 409 Conflict (optimistic concurrency control).
+  - id: VALID_VOCAB
+    rule: >
+      The vocab object MUST pass all validation checks (format,
+      facet membership, duplicate detection, abbreviation casing).
+  - id: UPDATED_TIMESTAMP
+    rule: "updated_at MUST be set to the current time before contributing."
+  - id: UPDATED_COUNT
+    rule: "tag_count MUST match the actual length of the tags array."
+
+postconditions:
+  - "tags/tags.json on GitHub is updated with the new content."
+  - "A new git commit is created with the specified message."
+
+errors:
+  - code: AUTH_FAILED
+    message: "GitHub authentication failed. Check token permissions."
+  - code: CONFLICT
+    message: "SHA mismatch — file was modified since last read. Re-fetch and retry."
+  - code: VALIDATION_FAILED
+    message: "Vocabulary validation failed: {details}."
+  - code: API_ERROR
+    message: "GitHub API error: {status} {message}."
+
+side_effects:
+  - "Creates a git commit on the target repository."
+
+github_api_reference:
+  endpoint: "PUT /repos/{owner}/{repo}/contents/tags/tags.json"
+  docs: "https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents"
+  required_headers:
+    Authorization: "Bearer {token}"
+    Content-Type: "application/json"
+  request_body:
+    message: "{commit message}"
+    content: "{base64-encoded JSON content}"
+    sha: "{current file SHA from GET response}"

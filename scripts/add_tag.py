@@ -3,50 +3,29 @@
 scripts/add_tag.py
 
 Interactively add a new tag to the vocabulary.
-Loads facet list, tag pattern, and abbreviation rules from protocol/.
+Reads from and writes to tags/tags.json (the single source of truth).
 
 Usage: python3 scripts/add_tag.py
 """
 
 import re
 import sys
-import yaml
 import subprocess
 from pathlib import Path
 
 # Protocol-driven imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from scripts.lib.protocol_loader import get_facets, get_tag_pattern, get_tags_dir
+from scripts.lib.protocol_loader import (
+    get_facets, get_tag_pattern, get_tags_dir,
+    load_vocab_json, save_vocab_json,
+)
 
 ABBREV_FILE = Path("tags/abbrev.yaml")
 
 
-def load_yaml(path):
-    if not path.exists():
-        return []
-    with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) or []
-
-
-def load_abbrevs():
-    data = load_yaml(ABBREV_FILE)
-    if not isinstance(data, dict):
-        return {}
-    return {k: v for k, v in data.items() if isinstance(v, str)}
-
-
-def load_all_tags():
-    """Load all existing tags from per-facet files."""
-    all_tags = set()
-    tags_dir = get_tags_dir()
-    for facet in get_facets():
-        path = tags_dir / f"{facet}.yaml"
-        data = load_yaml(path)
-        if isinstance(data, list):
-            for entry in data:
-                if isinstance(entry, dict) and "tag" in entry:
-                    all_tags.add(entry["tag"])
-    return all_tags
+def load_abbrevs_from_json(vocab):
+    """Load abbreviations from the JSON vocab."""
+    return vocab.get("abbrevs", {})
 
 
 def validate_value(value, facet, abbrevs):
@@ -71,8 +50,9 @@ def validate_value(value, facet, abbrevs):
 
 def main():
     facets = get_facets()
-    abbrevs = load_abbrevs()
-    existing_tags = load_all_tags()
+    vocab = load_vocab_json()
+    abbrevs = load_abbrevs_from_json(vocab)
+    existing_tags = {entry["tag"] for entry in vocab.get("tags", []) if "tag" in entry}
 
     print("=" * 50)
     print("  Add Tag — Interactive")
@@ -139,14 +119,8 @@ def main():
         print("Cancelled.")
         return
 
-    # Step 5: Append to facet file
-    tags_dir = get_tags_dir()
-    facet_file = tags_dir / f"{facet}.yaml"
-    entries = load_yaml(facet_file)
-    if not isinstance(entries, list):
-        entries = []
-
-    entries.append({
+    # Step 5: Write to JSON source of truth
+    vocab["tags"].append({
         "tag": full_tag,
         "facet": facet,
         "source": "manual",
@@ -154,21 +128,27 @@ def main():
         "deprecated": False,
     })
 
-    with open(facet_file, "w", encoding="utf-8") as f:
-        f.write(f"# {facet} tags\n")
-        yaml.dump(entries, f, sort_keys=False, allow_unicode=True, default_flow_style=False)
+    # Re-sort deterministically
+    vocab["tags"].sort(key=lambda x: (x.get("facet", ""), x.get("tag", "")))
 
-    print(f"\n✅ Added '{full_tag}' to {facet_file}")
+    save_vocab_json(vocab)
+    print(f"\n✅ Added '{full_tag}' to tags/tags.json")
 
-    # Step 6: Auto-compile
-    print("Compiling vocabulary...")
+    # Step 6: Derive YAML views
+    print("Deriving facet files + compiling...")
     result = subprocess.run(
-        [sys.executable, "scripts/compile_vocab.py"],
+        [sys.executable, str(Path(__file__).parent / "derive_facets.py")],
         capture_output=True, text=True
     )
-    print(result.stdout.strip())
-    if result.returncode != 0:
-        print(f"⚠️  Compile warning: {result.stderr.strip()}")
+    if result.stdout.strip():
+        print(result.stdout.strip())
+
+    result = subprocess.run(
+        [sys.executable, str(Path(__file__).parent / "compile_vocab.py")],
+        capture_output=True, text=True
+    )
+    if result.stdout.strip():
+        print(result.stdout.strip())
 
 
 if __name__ == "__main__":

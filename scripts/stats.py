@@ -3,49 +3,39 @@
 scripts/stats.py
 
 Display vocabulary statistics: tag counts per facet, total, and recent additions.
-Loads facet list from protocol/.
+Reads from tags/tags.json (the single source of truth).
 
 Usage: python3 scripts/stats.py [--recent N]
 """
 
 import sys
-import yaml
 import argparse
 from pathlib import Path
 
 # Protocol-driven imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from scripts.lib.protocol_loader import get_facets, get_tags_dir
-
-
-def load_yaml(path):
-    if not path.exists():
-        return []
-    with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) or []
+from scripts.lib.protocol_loader import get_facets, load_vocab_json
 
 
 def main():
     facets = get_facets()
-    tags_dir = get_tags_dir()
 
     parser = argparse.ArgumentParser(description="Show vocabulary statistics.")
     parser.add_argument("--recent", type=int, metavar="N", default=0,
-                        help="Show the N most recently added tags (last entries in each file)")
+                        help="Show the N most recently added tags (last entries)")
     args = parser.parse_args()
 
-    total = 0
-    facet_counts = {}
-    all_entries = []
+    vocab = load_vocab_json()
+    all_tags = vocab.get("tags", [])
 
-    for facet in facets:
-        path = tags_dir / f"{facet}.yaml"
-        data = load_yaml(path)
-        count = len(data) if isinstance(data, list) else 0
-        facet_counts[facet] = count
-        total += count
-        if isinstance(data, list):
-            all_entries.extend(data)
+    # Count per facet
+    facet_counts = {f: 0 for f in facets}
+    for entry in all_tags:
+        f = entry.get("facet", "")
+        if f in facet_counts:
+            facet_counts[f] += 1
+
+    total = len(all_tags)
 
     # Header
     print("=" * 40)
@@ -65,7 +55,7 @@ def main():
 
     # Recent additions
     if args.recent > 0:
-        recent = all_entries[-args.recent:] if len(all_entries) >= args.recent else all_entries
+        recent = all_tags[-args.recent:] if len(all_tags) >= args.recent else all_tags
         print(f"  Last {len(recent)} additions:")
         print("  " + "─" * 50)
         for entry in reversed(recent):

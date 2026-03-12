@@ -1,18 +1,28 @@
-# ai_task tags — auto-split from tags.yaml
+# ai_task tags
+- tag: ai_task:NER
+  facet: ai_task
+  source: llm-interactive
+  note: 命名实体识别
+  deprecated: false
+- tag: ai_task:anomaly
+  facet: ai_task
+  source: llm-interactive
+  note: 异常检测（任务）
+  deprecated: false
+- tag: ai_task:change-detection
+  facet: ai_task
+  source: llm-interactive
+  note: 变化检测
+  deprecated: false
 - tag: ai_task:classification
   facet: ai_task
   source: llm-interactive
   note: 分类
   deprecated: false
-- tag: ai_task:regression
+- tag: ai_task:clustering
   facet: ai_task
   source: llm-interactive
-  note: 回归
-  deprecated: false
-- tag: ai_task:segmentation
-  facet: ai_task
-  source: llm-interactive
-  note: 语义分割
+  note: 聚类
   deprecated: false
 - tag: ai_task:detection
   facet: ai_task
@@ -24,58 +34,48 @@
   source: llm-interactive
   note: 生成
   deprecated: false
-- tag: ai_task:prediction
+- tag: ai_task:image-restoration
   facet: ai_task
   source: llm-interactive
-  note: 预测
-  deprecated: false
-- tag: ai_task:clustering
-  facet: ai_task
-  source: llm-interactive
-  note: 聚类
-  deprecated: false
-- tag: ai_task:anomaly
-  facet: ai_task
-  source: llm-interactive
-  note: 异常检测（任务）
-  deprecated: false
-- tag: ai_task:NER
-  facet: ai_task
-  source: llm-interactive
-  note: 命名实体识别
-  deprecated: false
-- tag: ai_task:recommendation
-  facet: ai_task
-  source: llm-interactive
-  note: 推荐
+  note: 图像修复
   deprecated: false
 - tag: ai_task:instance-segmentation
   facet: ai_task
   source: llm-interactive
   note: 实例分割
   deprecated: false
-- tag: ai_task:tracking
+- tag: ai_task:prediction
   facet: ai_task
   source: llm-interactive
-  note: 跟踪
+  note: 预测
   deprecated: false
-- tag: ai_task:summarization
+- tag: ai_task:recommendation
   facet: ai_task
   source: llm-interactive
-  note: 摘要
+  note: 推荐
+  deprecated: false
+- tag: ai_task:regression
+  facet: ai_task
+  source: llm-interactive
+  note: 回归
+  deprecated: false
+- tag: ai_task:segmentation
+  facet: ai_task
+  source: llm-interactive
+  note: 语义分割
   deprecated: false
 - tag: ai_task:semantic-search
   facet: ai_task
   source: llm-interactive
   note: 语义检索
   deprecated: false
-- tag: ai_task:image-restoration
+- tag: ai_task:summarization
   facet: ai_task
   source: llm-interactive
-  note: 图像修复
+  note: 摘要
   deprecated: false
-- tag: ai_task:change-detection
+- tag: ai_task:tracking
   facet: ai_task
   source: llm-interactive
-  note: 变化检测
+  note: 跟踪
   deprecated: false

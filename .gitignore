@@ -22,3 +22,4 @@ Thumbs.db
 # Virtual env
 .venv/
 venv/
+.opencode

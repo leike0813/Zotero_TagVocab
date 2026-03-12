@@ -1,0 +1,50 @@
+# Operation: subscribe
+name: subscribe
+description: >
+  Read the current vocabulary from the single source of truth (tags/tags.json).
+  Consumers fetch this file via HTTP GET from GitHub raw URL or local path.
+
+input:
+  source:
+    type: string
+    required: true
+    description: >
+      URL or local file path to tags/tags.json.
+      For GitHub: https://raw.githubusercontent.com/{owner}/{repo}/main/tags/tags.json
+      For local: tags/tags.json
+
+output:
+  vocab:
+    type: object
+    description: The complete vocabulary object parsed from JSON.
+    properties:
+      version: { type: string }
+      updated_at: { type: string }
+      facets: { type: array, items: { type: string } }
+      tags:
+        type: array
+        items:
+          $ref: "schema/tag.schema.yaml"
+      abbrevs:
+        type: object
+        additionalProperties: { type: string }
+      tag_count: { type: integer }
+
+preconditions:
+  - id: SOURCE_ACCESSIBLE
+    rule: "The source URL or path MUST be reachable."
+  - id: VALID_JSON
+    rule: "The response MUST be valid JSON."
+
+postconditions:
+  - "No state changes (read-only)."
+
+errors:
+  - code: SOURCE_UNREACHABLE
+    message: "Cannot access source '{source}'."
+  - code: INVALID_JSON
+    message: "Response is not valid JSON."
+  - code: SCHEMA_MISMATCH
+    message: "JSON structure does not match expected vocabulary schema."
+
+side_effects: []

@@ -9,10 +9,12 @@ protocol/ — see scripts/lib/protocol_loader.py.
 Usage:
   python3 scripts/validate.py [--strict]
   python3 scripts/validate.py --per-facet [--strict]
+  python3 scripts/validate.py --json [--strict]
 """
 
 import sys
 import re
+import json
 import yaml
 import argparse
 from pathlib import Path
@@ -163,6 +165,11 @@ def main():
         action="store_true",
         help="Validate per-facet files (tags/<facet>.yaml) instead of compiled tags.yaml",
     )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Validate tags/tags.json (the JSON source of truth)",
+    )
     args = parser.parse_args()
 
     all_issues = []
@@ -170,7 +177,46 @@ def main():
     allowed_facets = get_facet_set()
     facets = get_facets()
 
-    if args.per_facet:
+    if args.json:
+        # JSON source-of-truth validation
+        tags_dir = get_tags_dir()
+        json_path = tags_dir / "tags.json"
+        if not json_path.exists():
+            print(f"❌ {json_path} not found. Run publish.py first.")
+            sys.exit(1)
+
+        with open(json_path, "r", encoding="utf-8") as f:
+            try:
+                vocab = json.load(f)
+            except json.JSONDecodeError as e:
+                print(f"❌ Invalid JSON: {e}")
+                sys.exit(1)
+
+        # Structure checks
+        for key in ["version", "updated_at", "facets", "tags", "tag_count"]:
+            if key not in vocab:
+                all_issues.append(f"Missing required key: '{key}'")
+
+        tags = vocab.get("tags", [])
+        tag_issues = validate_tags(tags, abbrevs)
+        all_issues.extend(tag_issues)
+
+        # tag_count consistency
+        declared = vocab.get("tag_count", 0)
+        actual = len(tags)
+        if declared != actual:
+            all_issues.append(f"tag_count mismatch: declared={declared}, actual={actual}")
+
+        # facets consistency
+        json_facets = vocab.get("facets", [])
+        if set(json_facets) != set(facets):
+            all_issues.append(f"facets mismatch: JSON has {json_facets}, protocol has {facets}")
+
+        print(f"Tags: {actual} (JSON mode)")
+        print(f"Version: {vocab.get('version', '?')}")
+        print(f"Updated: {vocab.get('updated_at', '?')}")
+
+    elif args.per_facet:
         # Per-facet validation mode
         tags_dir = get_tags_dir()
         all_tags_cross = set()

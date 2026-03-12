@@ -1,58 +1,8 @@
-# data tags — auto-split from tags.yaml
-- tag: data:image
-  facet: data
-  source: llm-interactive
-  note: 图像
-  deprecated: false
-- tag: data:point-cloud
-  facet: data
-  source: llm-interactive
-  note: 点云
-  deprecated: false
-- tag: data:time-series
-  facet: data
-  source: llm-interactive
-  note: 时序
-  deprecated: false
-- tag: data:text
-  facet: data
-  source: llm-interactive
-  note: 文本
-  deprecated: false
-- tag: data:tabular
-  facet: data
-  source: llm-interactive
-  note: 结构化表格
-  deprecated: false
-- tag: data:video
-  facet: data
-  source: llm-interactive
-  note: 视频
-  deprecated: false
+# data tags
 - tag: data:3D-model
   facet: data
   source: llm-interactive
   note: 三维模型
-  deprecated: false
-- tag: data:sensor
-  facet: data
-  source: llm-interactive
-  note: 传感器数据
-  deprecated: false
-- tag: data:geospatial
-  facet: data
-  source: llm-interactive
-  note: 地理空间数据
-  deprecated: false
-- tag: data:LiDAR
-  facet: data
-  source: llm-interactive
-  note: 激光雷达
-  deprecated: false
-- tag: data:acoustic
-  facet: data
-  source: llm-interactive
-  note: 声波/声发射
   deprecated: false
 - tag: data:BIM
   facet: data
@@ -64,23 +14,73 @@
   source: llm-interactive
   note: 探地雷达
   deprecated: false
-- tag: data:thermal
+- tag: data:LiDAR
   facet: data
   source: llm-interactive
-  note: 热成像
+  note: 激光雷达
   deprecated: false
-- tag: data:strain
+- tag: data:acoustic
   facet: data
   source: llm-interactive
-  note: 应变数据
+  note: 声波/声发射
   deprecated: false
 - tag: data:displacement
   facet: data
   source: llm-interactive
   note: 位移数据
   deprecated: false
+- tag: data:geospatial
+  facet: data
+  source: llm-interactive
+  note: 地理空间数据
+  deprecated: false
+- tag: data:image
+  facet: data
+  source: llm-interactive
+  note: 图像
+  deprecated: false
 - tag: data:log
   facet: data
   source: llm-interactive
   note: 日志/记录
+  deprecated: false
+- tag: data:point-cloud
+  facet: data
+  source: llm-interactive
+  note: 点云
+  deprecated: false
+- tag: data:sensor
+  facet: data
+  source: llm-interactive
+  note: 传感器数据
+  deprecated: false
+- tag: data:strain
+  facet: data
+  source: llm-interactive
+  note: 应变数据
+  deprecated: false
+- tag: data:tabular
+  facet: data
+  source: llm-interactive
+  note: 结构化表格
+  deprecated: false
+- tag: data:text
+  facet: data
+  source: llm-interactive
+  note: 文本
+  deprecated: false
+- tag: data:thermal
+  facet: data
+  source: llm-interactive
+  note: 热成像
+  deprecated: false
+- tag: data:time-series
+  facet: data
+  source: llm-interactive
+  note: 时序
+  deprecated: false
+- tag: data:video
+  facet: data
+  source: llm-interactive
+  note: 视频
   deprecated: false

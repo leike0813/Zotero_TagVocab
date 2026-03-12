@@ -3,7 +3,7 @@
 scripts/export_tags.py
 
 Export tag strings (no metadata) in multiple formats.
-Loads facet list from protocol/.
+Reads from tags/tags.json (the single source of truth).
 
 Usage:
   python3 scripts/export_tags.py --format yaml
@@ -20,29 +20,18 @@ from pathlib import Path
 
 # Protocol-driven imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from scripts.lib.protocol_loader import get_facets, get_tags_dir
-
-
-def load_yaml_file(path):
-    if not path.exists():
-        return []
-    with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) or []
+from scripts.lib.protocol_loader import get_facets, load_vocab_json
 
 
 def collect_tags(facet_filter=None):
-    """Collect tag strings from per-facet files."""
-    facets = get_facets()
-    tags_dir = get_tags_dir()
+    """Collect tag strings from JSON source of truth."""
+    vocab = load_vocab_json()
     tags = []
-    facets_to_load = [facet_filter] if facet_filter else facets
-    for facet in facets_to_load:
-        path = tags_dir / f"{facet}.yaml"
-        data = load_yaml_file(path)
-        if isinstance(data, list):
-            for entry in data:
-                if isinstance(entry, dict) and "tag" in entry:
-                    tags.append(entry["tag"])
+    for entry in vocab.get("tags", []):
+        if isinstance(entry, dict) and "tag" in entry:
+            if facet_filter and entry.get("facet") != facet_filter:
+                continue
+            tags.append(entry["tag"])
     return sorted(tags)
 
 

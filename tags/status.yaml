@@ -1,4 +1,4 @@
-# status tags — auto-split from tags.yaml
+# status tags
 - tag: status:0-inbox
   facet: status
   source: llm-interactive

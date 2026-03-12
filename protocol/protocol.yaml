@@ -22,6 +22,7 @@ facets:
 paths:
   tags_dir: "tags/"
   compiled_output: "tags/tags.yaml"
+  json_source: "tags/tags.json"
   abbrev_file: "tags/abbrev.yaml"
   aliases_file: "tags/aliases.yaml"
   facet_file_template: "tags/{facet}.yaml"
@@ -44,3 +45,6 @@ operations:
   - "operations/compile.yaml"
   - "operations/stats.yaml"
   - "operations/import_tags.yaml"
+  - "operations/publish.yaml"
+  - "operations/subscribe.yaml"
+  - "operations/contribute.yaml"

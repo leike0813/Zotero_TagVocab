@@ -77,3 +77,28 @@ def load_operation(name):
     path = _PROTOCOL_DIR / "operations" / f"{name}.yaml"
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+def get_json_source_path():
+    """Return the path to the JSON source of truth (tags/tags.json)."""
+    return _PROJECT_ROOT / load_protocol()["paths"]["json_source"]
+
+
+def load_vocab_json():
+    """Load the JSON source of truth. Returns the full vocab dict."""
+    import json
+    path = get_json_source_path()
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_vocab_json(vocab):
+    """Write updated vocab dict back to the JSON source of truth."""
+    import json
+    from datetime import datetime, timezone
+    path = get_json_source_path()
+    vocab["updated_at"] = datetime.now(timezone.utc).isoformat()
+    vocab["tag_count"] = len(vocab.get("tags", []))
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(vocab, f, ensure_ascii=False, indent=2)
+        f.write("\n")
