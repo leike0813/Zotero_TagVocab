@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-03-11T16:10:30.850817+00:00",
+  "updated_at": "2026-04-02T12:03:57.503Z",
   "facets": [
     "field",
     "topic",
@@ -12,13 +12,6 @@
     "status"
   ],
   "tags": [
-    {
-      "tag": "ai_task:NER",
-      "facet": "ai_task",
-      "source": "llm-interactive",
-      "note": "命名实体识别",
-      "deprecated": false
-    },
     {
       "tag": "ai_task:anomaly",
       "facet": "ai_task",
@@ -73,6 +66,13 @@
       "facet": "ai_task",
       "source": "llm-interactive",
       "note": "实例分割",
+      "deprecated": false
+    },
+    {
+      "tag": "ai_task:NER",
+      "facet": "ai_task",
+      "source": "llm-interactive",
+      "note": "命名实体识别",
       "deprecated": false
     },
     {
@@ -132,31 +132,17 @@
       "deprecated": false
     },
     {
-      "tag": "data:BIM",
-      "facet": "data",
-      "source": "llm-interactive",
-      "note": "BIM 模型数据",
-      "deprecated": false
-    },
-    {
-      "tag": "data:GPR",
-      "facet": "data",
-      "source": "llm-interactive",
-      "note": "探地雷达",
-      "deprecated": false
-    },
-    {
-      "tag": "data:LiDAR",
-      "facet": "data",
-      "source": "llm-interactive",
-      "note": "激光雷达",
-      "deprecated": false
-    },
-    {
       "tag": "data:acoustic",
       "facet": "data",
       "source": "llm-interactive",
       "note": "声波/声发射",
+      "deprecated": false
+    },
+    {
+      "tag": "data:BIM",
+      "facet": "data",
+      "source": "llm-interactive",
+      "note": "BIM 模型数据",
       "deprecated": false
     },
     {
@@ -174,10 +160,24 @@
       "deprecated": false
     },
     {
+      "tag": "data:GPR",
+      "facet": "data",
+      "source": "llm-interactive",
+      "note": "探地雷达",
+      "deprecated": false
+    },
+    {
       "tag": "data:image",
       "facet": "data",
       "source": "llm-interactive",
       "note": "图像",
+      "deprecated": false
+    },
+    {
+      "tag": "data:LiDAR",
+      "facet": "data",
+      "source": "llm-interactive",
+      "note": "激光雷达",
       "deprecated": false
     },
     {
@@ -349,6 +349,13 @@
       "deprecated": false
     },
     {
+      "tag": "field:Math/Stats",
+      "facet": "field",
+      "source": "llm-interactive",
+      "note": "数学/统计",
+      "deprecated": false
+    },
+    {
       "tag": "field:MGMT/Risk",
       "facet": "field",
       "source": "llm-interactive",
@@ -363,52 +370,10 @@
       "deprecated": false
     },
     {
-      "tag": "field:Math/Stats",
-      "facet": "field",
-      "source": "llm-interactive",
-      "note": "数学/统计",
-      "deprecated": false
-    },
-    {
       "tag": "field:Mining",
       "facet": "field",
       "source": "llm-interactive",
       "note": "采矿工程",
-      "deprecated": false
-    },
-    {
-      "tag": "method:Bayesian-optimization",
-      "facet": "method",
-      "source": "llm-interactive",
-      "note": "贝叶斯优化",
-      "deprecated": false
-    },
-    {
-      "tag": "method:DEM",
-      "facet": "method",
-      "source": "llm-interactive",
-      "note": "离散元方法（作为方法）",
-      "deprecated": false
-    },
-    {
-      "tag": "method:DL",
-      "facet": "method",
-      "source": "llm-interactive",
-      "note": "深度学习",
-      "deprecated": false
-    },
-    {
-      "tag": "method:FEM",
-      "facet": "method",
-      "source": "llm-interactive",
-      "note": "有限元方法（作为方法）",
-      "deprecated": false
-    },
-    {
-      "tag": "method:ML",
-      "facet": "method",
-      "source": "llm-interactive",
-      "note": "机器学习",
       "deprecated": false
     },
     {
@@ -423,6 +388,13 @@
       "facet": "method",
       "source": "llm-interactive",
       "note": "反分析",
+      "deprecated": false
+    },
+    {
+      "tag": "method:Bayesian-optimization",
+      "facet": "method",
+      "source": "llm-interactive",
+      "note": "贝叶斯优化",
       "deprecated": false
     },
     {
@@ -454,10 +426,24 @@
       "deprecated": false
     },
     {
+      "tag": "method:DEM",
+      "facet": "method",
+      "source": "llm-interactive",
+      "note": "离散元方法（作为方法）",
+      "deprecated": false
+    },
+    {
       "tag": "method:dimensionality-reduction",
       "facet": "method",
       "source": "llm-interactive",
       "note": "降维",
+      "deprecated": false
+    },
+    {
+      "tag": "method:DL",
+      "facet": "method",
+      "source": "llm-interactive",
+      "note": "深度学习",
       "deprecated": false
     },
     {
@@ -472,6 +458,13 @@
       "facet": "method",
       "source": "llm-interactive",
       "note": "联邦学习",
+      "deprecated": false
+    },
+    {
+      "tag": "method:FEM",
+      "facet": "method",
+      "source": "llm-interactive",
+      "note": "有限元方法（作为方法）",
       "deprecated": false
     },
     {
@@ -524,6 +517,13 @@
       "deprecated": false
     },
     {
+      "tag": "method:ML",
+      "facet": "method",
+      "source": "llm-interactive",
+      "note": "机器学习",
+      "deprecated": false
+    },
+    {
       "tag": "method:model-updating",
       "facet": "method",
       "source": "llm-interactive",
@@ -566,17 +566,17 @@
       "deprecated": false
     },
     {
-      "tag": "method:risk/MC",
-      "facet": "method",
-      "source": "llm-interactive",
-      "note": "蒙特卡洛风险分析",
-      "deprecated": false
-    },
-    {
       "tag": "method:risk/bayesian",
       "facet": "method",
       "source": "llm-interactive",
       "note": "贝叶斯风险分析",
+      "deprecated": false
+    },
+    {
+      "tag": "method:risk/MC",
+      "facet": "method",
+      "source": "llm-interactive",
+      "note": "蒙特卡洛风险分析",
       "deprecated": false
     },
     {
@@ -657,6 +657,20 @@
       "deprecated": false
     },
     {
+      "tag": "model:DL/attention",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "注意力机制",
+      "deprecated": false
+    },
+    {
+      "tag": "model:DL/autoencoder",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "自编码器",
+      "deprecated": false
+    },
+    {
       "tag": "model:DL/BiLSTM",
       "facet": "model",
       "source": "llm-interactive",
@@ -685,13 +699,6 @@
       "deprecated": false
     },
     {
-      "tag": "model:DL/DETR",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "DETR",
-      "deprecated": false
-    },
-    {
       "tag": "model:DL/DeepLab",
       "facet": "model",
       "source": "llm-interactive",
@@ -706,6 +713,20 @@
       "deprecated": false
     },
     {
+      "tag": "model:DL/DETR",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "DETR",
+      "deprecated": false
+    },
+    {
+      "tag": "model:DL/diffusion",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "扩散模型",
+      "deprecated": false
+    },
+    {
       "tag": "model:DL/EfficientNet",
       "facet": "model",
       "source": "llm-interactive",
@@ -713,17 +734,17 @@
       "deprecated": false
     },
     {
-      "tag": "model:DL/FPN",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "Feature Pyramid Network",
-      "deprecated": false
-    },
-    {
       "tag": "model:DL/Faster-R-CNN",
       "facet": "model",
       "source": "llm-interactive",
       "note": "Faster R-CNN",
+      "deprecated": false
+    },
+    {
+      "tag": "model:DL/FPN",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "Feature Pyramid Network",
       "deprecated": false
     },
     {
@@ -776,17 +797,17 @@
       "deprecated": false
     },
     {
-      "tag": "model:DL/RNN",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "循环神经网络",
-      "deprecated": false
-    },
-    {
       "tag": "model:DL/ResNet",
       "facet": "model",
       "source": "llm-interactive",
       "note": "ResNet",
+      "deprecated": false
+    },
+    {
+      "tag": "model:DL/RNN",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "循环神经网络",
       "deprecated": false
     },
     {
@@ -804,6 +825,13 @@
       "deprecated": false
     },
     {
+      "tag": "model:DL/TabNet",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "TabNet",
+      "deprecated": false
+    },
+    {
       "tag": "model:DL/TCN",
       "facet": "model",
       "source": "llm-interactive",
@@ -811,10 +839,10 @@
       "deprecated": false
     },
     {
-      "tag": "model:DL/TabNet",
+      "tag": "model:DL/transformer",
       "facet": "model",
       "source": "llm-interactive",
-      "note": "TabNet",
+      "note": "Transformer",
       "deprecated": false
     },
     {
@@ -850,34 +878,6 @@
       "facet": "model",
       "source": "llm-interactive",
       "note": "YOLO",
-      "deprecated": false
-    },
-    {
-      "tag": "model:DL/attention",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "注意力机制",
-      "deprecated": false
-    },
-    {
-      "tag": "model:DL/autoencoder",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "自编码器",
-      "deprecated": false
-    },
-    {
-      "tag": "model:DL/diffusion",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "扩散模型",
-      "deprecated": false
-    },
-    {
-      "tag": "model:DL/transformer",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "Transformer",
       "deprecated": false
     },
     {
@@ -930,6 +930,13 @@
       "deprecated": false
     },
     {
+      "tag": "model:ML/AdaBoost",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "AdaBoost",
+      "deprecated": false
+    },
+    {
       "tag": "model:ML/ANN",
       "facet": "model",
       "source": "llm-interactive",
@@ -937,10 +944,10 @@
       "deprecated": false
     },
     {
-      "tag": "model:ML/AdaBoost",
+      "tag": "model:ML/bayesian-network",
       "facet": "model",
       "source": "llm-interactive",
-      "note": "AdaBoost",
+      "note": "贝叶斯网络",
       "deprecated": false
     },
     {
@@ -958,10 +965,31 @@
       "deprecated": false
     },
     {
+      "tag": "model:ML/decision-tree",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "决策树",
+      "deprecated": false
+    },
+    {
+      "tag": "model:ML/gaussian-process",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "高斯过程",
+      "deprecated": false
+    },
+    {
       "tag": "model:ML/GNN",
       "facet": "model",
       "source": "llm-interactive",
       "note": "图神经网络",
+      "deprecated": false
+    },
+    {
+      "tag": "model:ML/isolation-forest",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "孤立森林",
       "deprecated": false
     },
     {
@@ -979,55 +1007,6 @@
       "deprecated": false
     },
     {
-      "tag": "model:ML/PCA",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "主成分分析",
-      "deprecated": false
-    },
-    {
-      "tag": "model:ML/SVM",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "支持向量机",
-      "deprecated": false
-    },
-    {
-      "tag": "model:ML/XGBoost",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "XGBoost",
-      "deprecated": false
-    },
-    {
-      "tag": "model:ML/bayesian-network",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "贝叶斯网络",
-      "deprecated": false
-    },
-    {
-      "tag": "model:ML/decision-tree",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "决策树",
-      "deprecated": false
-    },
-    {
-      "tag": "model:ML/gaussian-process",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "高斯过程",
-      "deprecated": false
-    },
-    {
-      "tag": "model:ML/isolation-forest",
-      "facet": "model",
-      "source": "llm-interactive",
-      "note": "孤立森林",
-      "deprecated": false
-    },
-    {
       "tag": "model:ML/logistic-regression",
       "facet": "model",
       "source": "llm-interactive",
@@ -1042,6 +1021,13 @@
       "deprecated": false
     },
     {
+      "tag": "model:ML/PCA",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "主成分分析",
+      "deprecated": false
+    },
+    {
       "tag": "model:ML/random-forest",
       "facet": "model",
       "source": "llm-interactive",
@@ -1049,10 +1035,24 @@
       "deprecated": false
     },
     {
+      "tag": "model:ML/SVM",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "支持向量机",
+      "deprecated": false
+    },
+    {
       "tag": "model:ML/t-SNE",
       "facet": "model",
       "source": "llm-interactive",
       "note": "t-SNE",
+      "deprecated": false
+    },
+    {
+      "tag": "model:ML/XGBoost",
+      "facet": "model",
+      "source": "llm-interactive",
+      "note": "XGBoost",
       "deprecated": false
     },
     {
@@ -1119,17 +1119,17 @@
       "deprecated": false
     },
     {
-      "tag": "tool:ANSYS",
-      "facet": "tool",
-      "source": "llm-interactive",
-      "note": "ANSYS",
-      "deprecated": false
-    },
-    {
       "tag": "tool:Abaqus",
       "facet": "tool",
       "source": "llm-interactive",
       "note": "Abaqus",
+      "deprecated": false
+    },
+    {
+      "tag": "tool:ANSYS",
+      "facet": "tool",
+      "source": "llm-interactive",
+      "note": "ANSYS",
       "deprecated": false
     },
     {
@@ -1210,6 +1210,13 @@
       "deprecated": false
     },
     {
+      "tag": "tool:Python",
+      "facet": "tool",
+      "source": "llm-interactive",
+      "note": "Python",
+      "deprecated": false
+    },
+    {
       "tag": "tool:PyTorch",
       "facet": "tool",
       "source": "llm-interactive",
@@ -1217,10 +1224,10 @@
       "deprecated": false
     },
     {
-      "tag": "tool:Python",
+      "tag": "tool:scikit-learn",
       "facet": "tool",
       "source": "llm-interactive",
-      "note": "Python",
+      "note": "scikit-learn",
       "deprecated": false
     },
     {
@@ -1235,34 +1242,6 @@
       "facet": "tool",
       "source": "llm-interactive",
       "note": "UDEC (Itasca)",
-      "deprecated": false
-    },
-    {
-      "tag": "tool:scikit-learn",
-      "facet": "tool",
-      "source": "llm-interactive",
-      "note": "scikit-learn",
-      "deprecated": false
-    },
-    {
-      "tag": "topic:NATM",
-      "facet": "topic",
-      "source": "llm-interactive",
-      "note": "新奥法相关",
-      "deprecated": false
-    },
-    {
-      "tag": "topic:RAG",
-      "facet": "topic",
-      "source": "llm-interactive",
-      "note": "检索增强生成",
-      "deprecated": false
-    },
-    {
-      "tag": "topic:TBM",
-      "facet": "topic",
-      "source": "llm-interactive",
-      "note": "隧道掘进机",
       "deprecated": false
     },
     {
@@ -1518,6 +1497,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:feature-extraction",
+      "facet": "topic",
+      "source": "manual",
+      "note": "特征提取",
+      "deprecated": false
+    },
+    {
       "tag": "topic:few-shot-learning",
       "facet": "topic",
       "source": "llm-interactive",
@@ -1672,6 +1658,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:NATM",
+      "facet": "topic",
+      "source": "llm-interactive",
+      "note": "新奥法相关",
+      "deprecated": false
+    },
+    {
       "tag": "topic:noise",
       "facet": "topic",
       "source": "llm-interactive",
@@ -1760,6 +1753,13 @@
       "facet": "topic",
       "source": "llm-interactive",
       "note": "提示工程",
+      "deprecated": false
+    },
+    {
+      "tag": "topic:RAG",
+      "facet": "topic",
+      "source": "llm-interactive",
+      "note": "检索增强生成",
       "deprecated": false
     },
     {
@@ -1903,6 +1903,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:TBM",
+      "facet": "topic",
+      "source": "llm-interactive",
+      "note": "隧道掘进机",
+      "deprecated": false
+    },
+    {
       "tag": "topic:tunnel",
       "facet": "topic",
       "source": "llm-interactive",
@@ -1999,5 +2006,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 278
+  "tag_count": 279
 }
