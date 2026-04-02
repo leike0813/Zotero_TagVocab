@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-04-02T12:03:57.503Z",
+  "updated_at": "2026-04-02T14:47:59.127Z",
   "facets": [
     "field",
     "topic",
@@ -731,6 +731,13 @@
       "facet": "model",
       "source": "llm-interactive",
       "note": "EfficientNet",
+      "deprecated": false
+    },
+    {
+      "tag": "model:DL/Fast-R-CNN",
+      "facet": "model",
+      "source": "agent-suggest",
+      "note": "Fast R-CNN",
       "deprecated": false
     },
     {
@@ -2006,5 +2013,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 279
+  "tag_count": 280
 }
