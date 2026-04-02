@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-04-02T16:48:21.830Z",
+  "updated_at": "2026-04-02T17:07:51.184Z",
   "facets": [
     "field",
     "topic",
@@ -1658,6 +1658,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:model-convergence",
+      "facet": "topic",
+      "source": "agent-suggest",
+      "note": "模型收敛速度优化",
+      "deprecated": false
+    },
+    {
       "tag": "topic:muck",
       "facet": "topic",
       "source": "llm-interactive",
@@ -2034,5 +2041,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 283
+  "tag_count": 284
 }
