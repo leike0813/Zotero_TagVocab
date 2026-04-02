@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-04-02T17:07:51.184Z",
+  "updated_at": "2026-04-02T17:19:12.852Z",
   "facets": [
     "field",
     "topic",
@@ -1714,6 +1714,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:pedestrian-detection",
+      "facet": "topic",
+      "source": "agent-suggest",
+      "note": "行人检测",
+      "deprecated": false
+    },
+    {
       "tag": "topic:permeability",
       "facet": "topic",
       "source": "llm-interactive",
@@ -2041,5 +2048,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 284
+  "tag_count": 285
 }
