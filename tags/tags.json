@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-04-02T14:47:59.127Z",
+  "updated_at": "2026-04-02T16:23:24.858Z",
   "facets": [
     "field",
     "topic",
@@ -734,13 +734,6 @@
       "deprecated": false
     },
     {
-      "tag": "model:DL/Fast-R-CNN",
-      "facet": "model",
-      "source": "agent-suggest",
-      "note": "Fast R-CNN",
-      "deprecated": false
-    },
-    {
       "tag": "model:DL/Faster-R-CNN",
       "facet": "model",
       "source": "llm-interactive",
@@ -1252,6 +1245,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:3d-detection",
+      "facet": "topic",
+      "source": "agent-suggest",
+      "note": "3D 目标检测",
+      "deprecated": false
+    },
+    {
       "tag": "topic:anchor",
       "facet": "topic",
       "source": "llm-interactive",
@@ -1672,6 +1672,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:nms-free",
+      "facet": "topic",
+      "source": "agent-suggest",
+      "note": "无需非极大值抑制",
+      "deprecated": false
+    },
+    {
       "tag": "topic:noise",
       "facet": "topic",
       "source": "llm-interactive",
@@ -2013,5 +2020,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 280
+  "tag_count": 281
 }
