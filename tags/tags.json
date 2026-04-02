@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-04-02T16:23:24.858Z",
+  "updated_at": "2026-04-02T16:25:38.908Z",
   "facets": [
     "field",
     "topic",
@@ -1938,6 +1938,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:underwater",
+      "facet": "topic",
+      "source": "agent-suggest",
+      "note": "水下场景",
+      "deprecated": false
+    },
+    {
       "tag": "topic:ventilation",
       "facet": "topic",
       "source": "llm-interactive",
@@ -2020,5 +2027,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 281
+  "tag_count": 282
 }
