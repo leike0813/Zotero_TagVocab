@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-04-02T16:25:38.908Z",
+  "updated_at": "2026-04-02T16:41:39.898Z",
   "facets": [
     "field",
     "topic",
@@ -430,6 +430,13 @@
       "facet": "method",
       "source": "llm-interactive",
       "note": "离散元方法（作为方法）",
+      "deprecated": false
+    },
+    {
+      "tag": "method:denoising-training",
+      "facet": "method",
+      "source": "agent-suggest",
+      "note": "DeNoising 训练技术",
       "deprecated": false
     },
     {
@@ -2027,5 +2034,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 282
+  "tag_count": 283
 }
