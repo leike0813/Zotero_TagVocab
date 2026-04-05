@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-04-05T18:33:03.891Z",
+  "updated_at": "2026-04-05T18:33:17.267Z",
   "facets": [
     "field",
     "topic",
@@ -1798,6 +1798,13 @@
       "deprecated": false
     },
     {
+      "tag": "topic:promptable-segmentation",
+      "facet": "topic",
+      "source": "agent-suggest",
+      "note": "可提示分割",
+      "deprecated": false
+    },
+    {
       "tag": "topic:RAG",
       "facet": "topic",
       "source": "llm-interactive",
@@ -2055,5 +2062,5 @@
     "tcn": "TCN",
     "ug": "UG"
   },
-  "tag_count": 286
+  "tag_count": 287
 }
